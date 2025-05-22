@@ -40,7 +40,33 @@ def get_device_analysis(mac, ip):
             analysis['ping'] = "✅"
 
         # Service-Check
-        ports = {80: '🌐 HTTP', 443: '🔒 HTTPS', 22: '🛡️ SSH'}
+        
+        ports = {
+            # 
+            21: '📁 FTP (Unsafe)',
+            22: '🛡️ SSH',
+            23: '⚠️ Telnet (Unencrypted)',
+            80: '🌐 HTTP',
+            443: '🔒 HTTPS',
+            445: '💥 SMB (EternalBlue)',
+            3389: '🖥️ RDP (BlueKeep)',
+            5900: '👀 VNC (Weak Auth)',
+            1433: '🗃️ MSSQL (Injection)',
+            3306: '🗃️ MySQL',
+            5432: '🗃️ PostgreSQL',
+            6379: '🗃️ Redis (No Auth)',
+            11211: '💣 Memcached (DDoS)',
+            
+            # 
+            25: '📧 SMTP (Relay)',
+            53: '🌐 DNS (Spoofing)',
+            161: '📊 SNMP (Public)',
+            389: '🔑 LDAP (Auth)',
+            873: '🔄 Rsync (Auth)',
+            2049: '📂 NFS (Share)',
+            27017: '🗃️ MongoDB (No Auth)',
+            47808: '🎭 BACnet (IoT)'
+        }
         for port, icon in ports.items():
             with socket.socket() as s:
                 s.settimeout(0.2)
